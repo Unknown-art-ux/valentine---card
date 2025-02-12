@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahashivratri Greeting Card</title>
+    <style>
+        body {
+            text-align: center;
+            background: url('romantic-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .envelope {
+            margin-top: 50px;
+        }
+        .hidden {
+            display: none;
+        }
+        .card-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin: 50px auto;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            background: orange;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: darkorange;
+        }
+        #balloon-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .balloon {
+            position: absolute;
+            bottom: -50px;
+            width: 40px;
+            height: 60px;
+            background-color: red;
+            border-radius: 50%;
+            animation: float 5s linear infinite;
+        }
+        .balloon::after {
+            content: "";
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            width: 2px;
+            height: 30px;
+            background: black;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="envelope" class="envelope">
+        <button onclick="openCard()">📩 Open Card</button>
+    </div>
+
+    <div id="card" class="hidden">
+        <div class="card-content">
+            <h2 id="message">Hey Jyotishna 💗</h2>
+            <h2 id="message2" class="hidden">🦚🦚 RADHE RADHE 🦚🦚</h2>
+
+            <div id="shayari" class="hidden">
+                <p>💖 Tere liye kuch alfaaz likh raha hoon,</p>
+                <p>Jo keh nahi sakta, woh likh raha hoon.</p>
+                <p>Teri hasi subah ki roshni jaisi,</p>
+                <p>Teri awaaz ek geet purani jaisi.</p>
+                <p>Tera naam nahi leta, par sochta hoon,</p>
+                <p>Bas door se tujhe dekhta hoon.</p>
+                <p>Agar kabhi mehsoos ho yahi,</p>
+                <p>Toh ek baar muskura dena sahi… 💖</p>
+                <button id="yesBtn" onclick="startBalloons()">Yes</button>
+                <button id="noBtn" onmouseover="moveNoButton()">No</button>
+            </div>
+
+            <div id="mandirPrompt" class="hidden">
+                <h3>Shivratri ke din Shiv Mandir chale?</h3>
+                <button onclick="startBalloons()">Yes</button>
+                <button onmouseover="moveNoButton()">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="balloon-container"></div>
+
+    <audio id="bgMusic" loop>
+        <source src="tum-prem-ho-preet-ho.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        function openCard() {
+            document.getElementById("envelope").style.display = "none";
+            document.getElementById("card").classList.remove("hidden");
+            
+            setTimeout(() => {
+                document.getElementById("message2").classList.remove("hidden");
+            }, 1000);
+
+            setTimeout(() => {
+                document.getElementById("shayari").classList.remove("hidden");
+                document.getElementById("bgMusic").play();
+            }, 2000);
+        }
+
+        function moveNoButton() {
+            let noBtn = document.getElementById("noBtn");
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 100);
+            noBtn.style.position = "absolute";
+            noBtn.style.left = ${x}px;
+            noBtn.style.top = ${y}px;
+        }
+
+        function startBalloons() {
+            for (let i = 0; i < 20; i++) {
+                createBalloon();
+            }
+
+            setTimeout(() => {
+                document.getElementById("shayari").classList.add("hidden");
+                document.getElementById("mandirPrompt").classList.remove("hidden");
+            }, 3000);
+        }
+
+        function createBalloon() {
+            let balloon = document.createElement("div");
+            balloon.className = "balloon";
+            balloon.style.left = ${Math.random() * 100}vw;
+            balloon.style.backgroundColor = getRandomColor();
+            document.getElementById("balloon-container").appendChild(balloon);
+
+            setTimeout(() => {
+                balloon.remove();
+            }, 5000);
+        }
+
+        function getRandomColor() {
+            let colors = ["red", "pink", "blue", "purple", "orange"];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
+
+</body>
+</html>
