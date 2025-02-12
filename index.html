@@ -3,195 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine Card</title>
+    <title>Special Greeting</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: pink;
+            text-align: center;
+            background-color: #ffebee;
+            font-family: Arial, sans-serif;
             overflow: hidden;
-            flex-direction: column;
-            position: relative;
         }
-
-        /* Envelope */
-        .envelope {
-            width: 200px;
-            height: 150px;
-            background: red;
-            position: relative;
-            border-radius: 10px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .envelope span {
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        /* Hidden Card */
         .card {
-            display: none;
-            width: 300px;
+            width: 320px;
+            margin: 50px auto;
             padding: 20px;
             background: white;
             border-radius: 10px;
-            text-align: center;
-            position: relative;
-            animation: fadeIn 1s ease-in-out;
-            z-index: 10;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
+        .hidden {
+            display: none;
         }
-
-        .shayari {
-            font-style: italic;
-            margin: 20px 0;
-            color: darkred;
-            font-size: 18px;
-        }
-
-        /* Buttons */
         .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
             margin-top: 20px;
         }
-
         button {
-            padding: 10px 20px;
+            padding: 10px 15px;
+            font-size: 16px;
             border: none;
             cursor: pointer;
-            font-size: 16px;
             border-radius: 5px;
         }
-
-        .yes {
-            background-color: red;
+        .yes-btn {
+            background: orange;
             color: white;
         }
-
-        .no {
-            background-color: gray;
+        .no-btn {
+            background: gray;
             color: white;
-            position: relative;
-        }
-
-        /* No Button Moves */
-        .no:hover {
             position: absolute;
-            top: calc(50% - 20px);
-            left: calc(50% - 50px);
-            transform: translate(-50%, -50%);
         }
-
-        /* Balloons */
-        .balloon-container {
-            position: fixed;
+        #balloon-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
             pointer-events: none;
-            z-index: 5;
-        }
-
-        .balloon {
-            width: 50px;
-            height: 70px;
-            background: red;
-            border-radius: 50%;
-            position: absolute;
-            bottom: -100px;
-            animation: floatUp 5s linear infinite;
-        }
-
-        .string {
-            width: 2px;
-            height: 80px;
-            background: black;
-            position: absolute;
-            top: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 50%;
-            animation: swayString 1.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
-        }
-
-        @keyframes swayString {
-            0% { transform: translateX(-50%) rotate(-10deg); }
-            100% { transform: translateX(-50%) rotate(10deg); }
         }
     </style>
 </head>
 <body>
 
-    <div class="envelope" onclick="openCard()">
-        <span>Open Card</span>
-    </div>
+    <div id="balloon-container"></div>
 
-    <div class="card">
-        <h2>Happy Valentine's Day!</h2>
-        <p class="shayari">
-            💖 Tum meri zindagi ka wo hissa ho <br>
-            Jise mai kabhi khona nahi chahta...💖 <br>
-            Tum meri wo khushi ho <br>
-            Jise mai kabhi khona nahi chahta...💕
-        </p>
-        <audio id="loveSong" src="https://server8.mp3quran.net/tamil/Tum_Prem_Ho_Preet_Ho.mp3"></audio>
-
+    <div class="card" id="page1">
+        <h3>Hey Jyotishna 💗</h3>
         <div class="buttons">
-            <button class="yes" onclick="showBalloons()">Yes</button>
-            <button class="no" onmouseover="moveNoButton()">No</button>
+            <button class="yes-btn" onclick="nextPage(1)">Yes</button>
+            <button class="no-btn" onmouseover="moveNoButton()">No</button>
         </div>
     </div>
 
-    <div class="balloon-container" id="balloonContainer"></div>
+    <div class="card hidden" id="page2">
+        <h3>🦚🦚 RADHE RADHE 🦚🦚</h3>
+        <div class="buttons">
+            <button class="yes-btn" onclick="nextPage(2)">Yes</button>
+            <button class="no-btn" onmouseover="moveNoButton()">No</button>
+        </div>
+    </div>
+
+    <div class="card hidden" id="page3">
+        <h3>Ek khubsurat ladki ke liye ek shayari</h3>
+        <p>💜 <b>Tere liye kuch alfaaz likh raha hoon,</b><br>
+        Jo keh nahi sakta, woh likh raha hoon.<br>
+        Teri hasi subah ki roshni jaisi,<br>
+        Teri awaaz ek geet purani jaisi.<br>
+        Tera naam nahi leta, par sochta hoon,<br>
+        Bas door se tujhe dekhta hoon.<br>
+        Agar kabhi mehsoos ho yahi,<br>
+        Toh ek baar muskura dena sahi… 💜</p>
+        <div class="buttons">
+            <button class="yes-btn" onclick="nextPage(3)">Yes</button>
+            <button class="no-btn" onmouseover="moveNoButton()">No</button>
+        </div>
+    </div>
+
+    <div class="card hidden" id="page4">
+        <h3>Will you be my Valentine? 💖</h3>
+        <div class="buttons">
+            <button class="yes-btn" onclick="nextPage(4)">Yes</button>
+            <button class="no-btn" onmouseover="moveNoButton()">No</button>
+        </div>
+    </div>
+
+    <div class="card hidden" id="page5">
+        <h3>Shivratri ke din Shiv Mandir chale? 🚩</h3>
+        <div class="buttons">
+            <button class="yes-btn" onclick="nextPage(5)">Yes</button>
+            <button class="no-btn" onmouseover="moveNoButton()">No</button>
+        </div>
+    </div>
+
+    <div class="card hidden" id="thankyou">
+        <h2>Thank You! 💗🙈</h2>
+    </div>
 
     <script>
-        function openCard() {
-            document.querySelector('.envelope').style.display = 'none';
-            document.querySelector('.card').style.display = 'block';
-            document.getElementById("loveSong").play();
+        function nextPage(page) {
+            document.getElementById('page' + page).classList.add('hidden');
+            
+            if (page === 5) {
+                document.getElementById('thankyou').classList.remove('hidden');
+            } else {
+                document.getElementById('page' + (page + 1)).classList.remove('hidden');
+            }
+            
+            startBalloons();
         }
 
         function moveNoButton() {
-            const noButton = document.querySelector(".no");
-            noButton.style.left = Math.random() * window.innerWidth - 100 + "px";
-            noButton.style.top = Math.random() * window.innerHeight - 50 + "px";
+            var noBtn = event.target;
+            var x = Math.random() * (window.innerWidth - 100);
+            var y = Math.random() * (window.innerHeight - 50);
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
         }
 
-        function showBalloons() {
-            const container = document.getElementById('balloonContainer');
+        function startBalloons() {
+            let container = document.getElementById("balloon-container");
             
-            for (let i = 0; i < 50; i++) { // 50 balloons to fill screen
-                let balloon = document.createElement('div');
-                balloon.classList.add('balloon');
-                balloon.style.left = Math.random() * window.innerWidth + 'px';
-                balloon.style.animationDuration = (Math.random() * 2 + 3) + 's';
-                
-                let string = document.createElement('div');
-                string.classList.add('string');
-                
-                balloon.appendChild(string);
+            for (let i = 0; i < 10; i++) {
+                let balloon = document.createElement("div");
+                balloon.innerHTML = "🎈";
+                balloon.style.position = "absolute";
+                balloon.style.left = Math.random() * window.innerWidth + "px";
+                balloon.style.bottom = "-50px";
+                balloon.style.fontSize = "70px";  
+                balloon.style.animation = "flyBalloon 5s linear infinite";
                 container.appendChild(balloon);
             }
+
+            for (let i = 0; i < 5; i++) {
+                let heart = document.createElement("div");
+                heart.innerHTML = "❤";
+                heart.style.position = "absolute";
+                heart.style.left = Math.random() * window.innerWidth + "px";
+                heart.style.bottom = "-50px";
+                heart.style.fontSize = "70px";  
+                heart.style.animation = "flyHeart 5s linear infinite";
+                container.appendChild(heart);
+            }
+
+            setTimeout(() => {
+                let elements = container.children;
+                for (let el of elements) {
+                    el.remove();
+                }
+            }, 5000);
         }
     </script>
+
+    <style>
+        @keyframes flyBalloon {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+        @keyframes flyHeart {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+    </style>
 
 </body>
 </html>
